@@ -260,7 +260,14 @@
         const botResponse = await getGeminiResponse(message);
         const botMessageEl = document.createElement('div');
         botMessageEl.className = 'message';
-        botMessageEl.textContent = botResponse;
+
+        const formattedText = botResponse
+          .replace(/\n/g, "<br>")
+          .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+          .replace(/\*(.*?)\*/g, "<i>$1</i>")
+          .replace(/^- (.*?)(?=<br>|$)/gm, "• $1");
+
+        botMessageEl.innerHTML = formattedText;
         chatContent.appendChild(botMessageEl);
 
         chatContent.scrollTop = chatContent.scrollHeight;
