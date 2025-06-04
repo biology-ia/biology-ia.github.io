@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatIA</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; min-height: 100vh; }
+    .container { display: flex; height: 100%; }
+    .sidebar {
+      width: 260px;
+      background-color: #f8f9fc;
+      position: fixed;
+      top: 0;
+      left: -260px;
+      height: 100%;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+    .sidebar.open { left: 0; }
+    .sidebar h2 {
+      color: #19f724;
+      margin-bottom: 20px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 12px 0;
+      color: #333;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .sidebar a:hover { color: #09fd1d; }
+    .sidebar .chat-history {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    .sidebar .chat-history h3 {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .sidebar .chat-item {
+      font-size: 14px;
+      color: #333;
+      padding: 6px 0;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    .main {
+      flex: 1;
+      margin-left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .main-header {
+      padding: 15px 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .menu-icon { font-size: 24px; cursor: pointer; }
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      padding-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #4a5568;
+    }
+    .main-content img {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+    .main-content h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #1a202c;
+    }
+    .chat-messages {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .message {
+      max-width: 70%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background-color: #e2e8f0;
+      align-self: flex-start;
+      word-break: break-word;
+    }
+    .message.user {
+      background-color: #2563eb;
+      color: white;
+      align-self: flex-end;
+    }
+    .main-footer {
+      position: sticky;
+      bottom: 0;
+      background-color: #fff;
+      padding: 10px 20px;
+      border-top: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+    .main-footer input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    .main-footer button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <h2><span id="nombre-usuario" style="display:block; font-size: 0.9em; margin-top: 0.5em;"></span>Menú</h2>
+      <a href="#" id="ver-cuenta">Información de la cuenta</a>
+      <a href="login.html" id="cerrar-sesion">Cerrar sesión</a>
+      <div class="chat-history">
+        <h3>Chats guardados</h3>
+        <div id="savedChats"></div>
+      </div>
+      <a href="condiciones de servicio.html" style="margin-top: 30px; color: #00ff0d; font-weight: bold;">Condiciones de servicio</a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="main-header">
+        <i class='bx bx-menu menu-icon' id="menuToggle"></i>
+        <span>ChatIA</span>
+      </div>
+
+      <div class="main-content">
+        <img src="/img/Sin título.jpg" class="logo">
+        <h2>¡Comienza una nueva conversación!</h2>
+        <p>Escribe un mensaje para iniciar una conversación con la IA.</p>
+        <div class="chat-messages" id="chatContent"></div>
+      </div>
+
+      <div class="main-footer">
+        <input type="text" id="chatInput" placeholder="Escribe un mensaje...">
+        <button id="sendButton"><i class='bx bx-send'></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const apiKey = 'AIzaSyD6ackP8L14CiLE1pW08_yYA3pm6hWUn68'; // ← Apy key
+
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menuToggle');
+    const sendButton = document.getElementById('sendButton');
+    const chatInput = document.getElementById('chatInput');
+    const chatContent = document.getElementById('chatContent');
+    const savedChatsContainer = document.getElementById('savedChats');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    async function getGeminiResponse(userMessage) {
+      const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: userMessage }] }] })
+      });
+      const data = await response.json();
+      try {
+        return data.candidates[0].content.parts[0].text;
+      } catch {
+        return 'Lo siento, no se pudo obtener respuesta.';
+      }
+    }
+
+    function saveFullChat(user, bot) {
+      const historial = JSON.parse(localStorage.getItem('historialChat')) || [];
+      historial.push({ pregunta: user, respuesta: bot });
+      localStorage.setItem('historialChat', JSON.stringify(historial));
+      renderSavedChats();
+    }
+
+    function renderSavedChats() {
+      const historial = JSON.parse(localStorage.getItem('historialChat')) || [];
+      savedChatsContainer.innerHTML = '';
+      historial.slice().reverse().forEach((item, index) => {
+        const chatItem = document.createElement('div');
+        chatItem.className = 'chat-item';
+        chatItem.textContent = item.pregunta;
+        chatItem.addEventListener('click', () => {
+          mostrarChatCompleto(index);
+        });
+        savedChatsContainer.appendChild(chatItem);
+      });
+    }
+
+    function mostrarChatCompleto(index) {
+      const historial = JSON.parse(localStorage.getItem('historialChat')) || [];
+      const chat = historial[historial.length - 1 - index];
+      chatContent.innerHTML = '';
+
+      const pregunta = document.createElement('div');
+      pregunta.className = 'message user';
+      pregunta.textContent = chat.pregunta;
+      chatContent.appendChild(pregunta);
+
+      const respuesta = document.createElement('div');
+      respuesta.className = 'message';
+      respuesta.textContent = chat.respuesta;
+      chatContent.appendChild(respuesta);
+    }
+
+    sendButton.addEventListener('click', async () => {
+      const message = chatInput.value.trim();
+      if (message) {
+        const userMessageEl = document.createElement('div');
+        userMessageEl.className = 'message user';
+        userMessageEl.textContent = message;
+        chatContent.appendChild(userMessageEl);
+
+        chatInput.value = '';
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        const botResponse = await getGeminiResponse(message);
+        const botMessageEl = document.createElement('div');
+        botMessageEl.className = 'message';
+
+        const formattedText = botResponse
+          .replace(/\n/g, "<br>")
+          .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+          .replace(/\*(.*?)\*/g, "<i>$1</i>")
+          .replace(/^- (.*?)(?=<br>|$)/gm, "• $1");
+
+        botMessageEl.innerHTML = formattedText;
+        chatContent.appendChild(botMessageEl);
+
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        saveFullChat(message, botResponse);
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendButton.click();
+      }
+    });
+
+    // Mostrar nombre de usuario
+    const userData = JSON.parse(localStorage.getItem("usuario"));
+    if (userData?.nombre) {
+      document.getElementById("nombre-usuario").textContent = "Bienvenido, " + userData.nombre;
+    }
+
+    // Cerrar sesión
+    document.getElementById("cerrar-sesion").addEventListener("click", () => {
+      localStorage.removeItem("usuario");
+      window.location.href = "index.html";
+    });
+
+    // Información de cuenta
+    document.getElementById("ver-cuenta").addEventListener("click", () => {
+      alert(`Información de usuario:\nNombre: ${userData?.nombre || "Desconocido"}`);
+    });
+
+    renderSavedChats();
+  </script>
+
+</body>
+</html>
