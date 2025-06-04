@@ -7,7 +7,7 @@
 
 body{
     min-height: 100vh;
-    background-image: url(/img/hojas-naturaleza-verdes-wallpaper-preview.jpg);
+    background-image: url(https://i.pinimg.com/736x/fd/0f/f3/fd0ff3e83e3404141be7667288d0f995.jpg);
     background-size: cover;
     background-position:center ;
     display: flex;
@@ -20,8 +20,8 @@ body{
     max-width: 450px;
     padding: 40px  60px;
     border-radius: 10px;
-    color: white;
-    backdrop-filter: blur(20px);
+    color: rgb(0, 242, 250);
+    backdrop-filter: blur(30px);
     box-shadow: 0 0 10px  rgba(0, 0,0, 0.2);
 }
 .container h1{
@@ -36,10 +36,10 @@ form{
 }
 form a{
 text-decoration: none;
-color: #fff;
+color: #02ecfd;
 }
 .input-box{
-    border: 2px solid rgba(255, 255,255, 0.2);
+    border: 2px solid rgba(2, 2, 2, 0.2);
     display: flex;
     align-items: center;
     height: 60px;
@@ -52,11 +52,11 @@ color: #fff;
     border: 0;
     outline: 0;
     font-size: 16px;
-    color: #fff;
+    color: #000000;
     min-width: 0;
 }
 .input-box input::placeholder{
-    color: #fff;
+    color: #000000;
 }
 .remember-password{
     display: flex;

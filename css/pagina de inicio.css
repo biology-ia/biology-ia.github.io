@@ -1,64 +1,269 @@
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  background: url('https://c4.wallpaperflare.com/wallpaper/50/79/711/hojas-naturaleza-verdes-wallpaper-preview.jpg') no-repeat center center fixed;
-  background-size: cover;
-  position: relative;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  z-index: 0;
+html{
+    font-size: 62.5%;
 }
 
-h1, p, button, img {
-  position: relative;
-  z-index: 1;
+body{
+    width: 100%;
+    height: 90vh;
+    overflow-x: hidden;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+header{
+    margin-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 9%;
+    background-color: transparent;
+    filter: drop-shadow(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
 }
 
-p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  max-width: 600px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+.logo{
+    font-size: 3rem;
+    color: hwb(189 0% 0%);
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.5s ease;
 }
 
-.logo {
-  width: 150px;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+.logo:hover{
+    transform: scale(1.1);
 }
 
-.btn {
-  background-color: white;
-  color: #4A00E0;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+nav a{
+    font-size: 1.8rem;
+    color: rgb(0, 0, 0);
+    margin-left: 4rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
 }
 
-.btn:hover {
-  background-color: #e0e0e0;
+nav a:hover,
+nav a.active{
+    color: #4bb0b7;
+    border-bottom: 3px solid hwb(189 0% 0%);;
+}
+
+@media(max-width:995px){
+    nav{
+        position: absolute;
+        display: none;
+        top: 0;
+        right: 0;
+        width: 40%;
+        border-left: 3px solid #b74b4b;
+        border-bottom: 3px solid #b74b4b;
+        border-bottom-left-radius: 2rem;
+        padding: 1rem solid;
+        background-color: #141414;
+        border-top: 0.1rem solid rgba(0,0,0,0.1);
+    }
+
+    nav.active{
+        display: block;
+    }
+
+    nav a{
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    nav a:hover,
+    nav a.active{
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-bottom: 0.5rem solid #b74b4b;
+    }
+}
+
+section{
+    min-height: 100vh;
+    padding: 5rem 9% 5rem;
+}
+
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    background-color: rgb(255, 255, 255);
+}
+
+.home .home-content h1{
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+span{
+    color: hwb(189 0% 0%);;
+}
+
+.home-content h3{
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.home-content p{
+    font-size: 1.6rem;
+}
+
+.home-img{
+    border-radius: 50%;
+}
+
+.home-img img{
+    position: relative;
+    width: 32vw;
+    border-radius: 50%;
+    box-shadow: 0 0 25px solid #000000;
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.home-img img:hover{
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.social-icons a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: transparent;
+    border: 0.2rem solid hwb(189 0% 0%);;
+    font-size: 2rem;
+    border-radius: 50%;
+    margin: 3rem 1.5rem 3rem 0;
+    transition: 0.3s ease;
+    color: hwb(189 0% 0%);;
+}
+
+.social-icons a:hover{
+    color: black;
+    transform: scale(1.3) translateY(-5px);
+    background-color: hwb(189 0% 0%);;
+    box-shadow: 0  0 25px hwb(189 0% 0%);;
+}
+
+.btn{
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4rem;
+    font-size: 1.6rem;
+    color: hwb(189 0% 0%);;
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    border: 2px solid hwb(189 0% 0%);;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.btn:hover{
+    transform: scale3d(1.03);
+    background-color: hwb(189 0% 0%);;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 25px hwb(189 0% 0%);;
+}
+
+.typing-text{
+    font-size: 34px;
+    font-weight: 600;
+    min-width: 280px;
+}
+
+.typing-text span{
+    position: relative;
+}
+
+.typing-text span::before{
+    content: "software Developer";
+    color: hwb(189 0% 0%);;
+    animation: words 20s infinite;
+}
+
+.typing-text span::after{
+    content: "";
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 100%;
+    border-left: 3px solid rgb(255, 255, 255);
+    right: -8;
+    animation: cursor 0.6s infinite;
+}
+
+@keyframes cursor{
+    to{
+        border-left: 3px solid hwb(189 0% 0%);;
+    }
+}
+
+@keyframes words{
+    0%, 20%{
+        content: "Asistente";
+    }
+    21%, 40%{
+        content: "Compañero";
+    }
+    41%, 60%{
+        content: "Amigo";
+    }
+    61%, 80%{
+        content: "Mentor";
+    }
+    81%, 100%{
+        content: "consejero";
+    }
+}
+
+@media (max-width: 1000px){
+    .home{
+        gap: 4rem;
+    }
+}
+
+@media(max-width:995px){
+    .home{
+        flex-direction: column;
+        margin: 5rem 4rem;
+    }
+
+    .home .home-content h3{
+        font-size: 2.5rem;
+    }
+
+    .home-content h1{
+        font-size: 5rem;
+    }
+
+    .home-img img{
+        width: 70vw;
+        margin-top: 4rem;
+    }
 }
