@@ -20,6 +20,7 @@ body{
     overflow-x: hidden;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
+    
 }
 
 header{
@@ -39,7 +40,7 @@ header{
 
 .logo{
     font-size: 3rem;
-    color: hwb(189 0% 0%);
+    color: #2b73f8;
     font-weight: 800;
     cursor: pointer;
     transition: 0.5s ease;
@@ -60,8 +61,8 @@ nav a{
 
 nav a:hover,
 nav a.active{
-    color: #4bb0b7;
-    border-bottom: 3px solid hwb(189 0% 0%);;
+    color: #565658;
+    border-bottom: 3px solid #565658;;
 }
 
 @media(max-width:995px){
@@ -117,7 +118,7 @@ section{
 }
 
 span{
-    color: hwb(189 0% 0%);;
+    color: #2b73f8;;
 }
 
 .home-content h3{
@@ -155,40 +156,40 @@ span{
     width: 4rem;
     height: 4rem;
     background-color: transparent;
-    border: 0.2rem solid hwb(189 0% 0%);;
+    border: 0.2rem solid #2b73f8;;
     font-size: 2rem;
     border-radius: 50%;
     margin: 3rem 1.5rem 3rem 0;
     transition: 0.3s ease;
-    color: hwb(189 0% 0%);;
+    color: #565658;
 }
 
 .social-icons a:hover{
     color: black;
     transform: scale(1.3) translateY(-5px);
-    background-color: hwb(189 0% 0%);;
+    background-color: #2b73f8;;
     box-shadow: 0  0 25px hwb(189 0% 0%);;
 }
 
 .btn{
     display: inline-block;
     padding: 1rem 2.8rem;
-    background-color: rgb(255, 255, 255);
+    background-color: #565658;
     border-radius: 4rem;
     font-size: 1.6rem;
-    color: hwb(189 0% 0%);;
+    color: #ffffff;;
     letter-spacing: 0.3rem;
     font-weight: 600;
-    border: 2px solid hwb(189 0% 0%);;
+    border: 2px solid #565658;;
     transition: 0.3s ease;
     cursor: pointer;
 }
 
 .btn:hover{
     transform: scale3d(1.03);
-    background-color: hwb(189 0% 0%);;
+    background-color: hwb(220 38% 60%);;
     color: rgb(255, 255, 255);
-    box-shadow: 0 0 25px hwb(189 0% 0%);;
+    box-shadow: 0 0 25px#2b73f8;;
 }
 
 .typing-text{
@@ -203,7 +204,7 @@ span{
 
 .typing-text span::before{
     content: "software Developer";
-    color: hwb(189 0% 0%);;
+    color: #2b73f8;;
     animation: words 20s infinite;
 }
 
@@ -220,7 +221,7 @@ span{
 
 @keyframes cursor{
     to{
-        border-left: 3px solid hwb(189 0% 0%);;
+        border-left: 3px solid #2b73f8;;
     }
 }
 

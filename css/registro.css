@@ -1,5 +1,5 @@
 *{
-    margin: 0;
+    margin: 1;
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
@@ -7,7 +7,7 @@
 
 body{
     min-height: 100vh;
-    background-image: url(https://i.pinimg.com/736x/fd/0f/f3/fd0ff3e83e3404141be7667288d0f995.jpg);
+    background-image: url(../img/ChatGPT\ Image\ 8\ jul\ 2025\,\ 06_11_57\ p.m..png);
     background-size: cover;
     background-position:center ;
     display: flex;
@@ -20,7 +20,7 @@ body{
     max-width: 450px;
     padding: 40px  60px;
     border-radius: 10px;
-    color: rgb(0, 242, 250);
+    color: #565658;
     backdrop-filter: blur(30px);
     box-shadow: 0 0 10px  rgba(0, 0,0, 0.2);
 }
@@ -36,7 +36,7 @@ form{
 }
 form a{
 text-decoration: none;
-color: #02ecfd;
+color: #2b73f8;
 }
 .input-box{
     border: 2px solid rgba(2, 2, 2, 0.2);

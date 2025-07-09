@@ -3,55 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChatIA</title>
+  <title>chat</title>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; min-height: 100vh; }
     .container { display: flex; height: 100%; }
+
     .sidebar {
       width: 260px;
-      background-color: #f8f9fc;
+      background: linear-gradient(180deg, #ffffff, #f0f2f5);
       position: fixed;
       top: 0;
       left: -260px;
       height: 100%;
-      box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
       padding: 20px;
       transition: left 0.3s ease;
       z-index: 100;
+      border-radius: 0 16px 16px 0;
       overflow-y: auto;
     }
     .sidebar.open { left: 0; }
     .sidebar h2 {
-      color: #19f7ec;
-      margin-bottom: 20px;
+      color: #2b73f8;
+      font-size: 20px;
+      margin-bottom: 25px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      text-align: center;
     }
     .sidebar a {
       display: block;
-      padding: 12px 0;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      background-color: #f1f5f9;
       color: #333;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 15px;
+      border-radius: 8px;
+      transition: background-color 0.2s, transform 0.2s;
+      font-weight: 500;
     }
-    .sidebar a:hover { color: #09fdf1; }
+    .sidebar a:hover {
+      background-color: #e2e8f0;
+      transform: translateX(6px);
+    }
     .sidebar .chat-history {
-      margin-top: 20px;
-      border-top: 1px solid #ccc;
+      margin-top: 30px;
       padding-top: 10px;
+      border-top: 1px solid #ccc;
     }
     .sidebar .chat-history h3 {
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
     }
     .sidebar .chat-item {
       font-size: 14px;
       color: #333;
-      padding: 6px 0;
+      padding: 10px 14px;
+      background-color: #fff;
+      border-radius: 6px;
+      margin-bottom: 6px;
       cursor: pointer;
-      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+      border: 1px solid #ddd;
     }
+    .sidebar .chat-item:hover {
+      background-color: #f0f4f8;
+    }
+    .sidebar a:last-of-type {
+      margin-top: 40px;
+      background: #e9f1ff;
+      border: 1px solid #2b73f8;
+      color: #2b73f8;
+      font-weight: bold;
+      text-align: center;
+    }
+    .sidebar a:last-of-type:hover {
+      background: #dce9ff;
+    }
+
     .main {
       flex: 1;
       margin-left: 0;
@@ -139,7 +176,6 @@
   </style>
 </head>
 <body>
-
   <div class="container">
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -150,7 +186,7 @@
         <h3>Chats guardados</h3>
         <div id="savedChats"></div>
       </div>
-      <a href="condiciones de servicio.html" style="margin-top: 30px; color: #00d9ff; font-weight: bold;">Condiciones de servicio</a>
+      <a href="condiciones de servicio.html">Condiciones de servicio</a>
     </div>
 
     <!-- Main -->
@@ -175,7 +211,7 @@
   </div>
 
   <script>
-    const apiKey = 'AIzaSyD6ackP8L14CiLE1pW08_yYA3pm6hWUn68'; // ← Apy key
+    const apiKey = 'AIzaSyD6ackP8L14CiLE1pW08_yYA3pm6hWUn68';
 
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.getElementById('menuToggle');
@@ -282,25 +318,21 @@
       }
     });
 
-    // Mostrar nombre de usuario
     const userData = JSON.parse(localStorage.getItem("usuario"));
     if (userData?.nombre) {
       document.getElementById("nombre-usuario").textContent = "Bienvenido, " + userData.nombre;
     }
 
-    // Cerrar sesión
     document.getElementById("cerrar-sesion").addEventListener("click", () => {
       localStorage.removeItem("usuario");
       window.location.href = "index.html";
     });
 
-    // Información de cuenta
     document.getElementById("ver-cuenta").addEventListener("click", () => {
       alert(`Información de usuario:\nNombre: ${userData?.nombre || "Desconocido"}`);
     });
 
     renderSavedChats();
   </script>
-
 </body>
 </html>
